@@ -168,7 +168,7 @@ class _GraphSevereState extends State<GraphSevere> {
           primaryYAxis: const NumericAxis(
             title: AxisTitle(text: 'Scorad Score'),
             interval: 5,
-            minimum: 20, // Set the minimum value to 20
+            minimum: 20,
           ),
           series: <LineSeries<SeverityScoreData, String>>[
             LineSeries<SeverityScoreData, String>(
@@ -202,14 +202,72 @@ class RecentAssessmentHistory extends StatefulWidget {
   const RecentAssessmentHistory({super.key});
 
   @override
-  State<RecentAssessmentHistory> createState() =>
+  _RecentAssessmentHistoryState createState() =>
       _RecentAssessmentHistoryState();
 }
 
 class _RecentAssessmentHistoryState extends State<RecentAssessmentHistory> {
+  final List<Map<String, String>> history = [
+    {'date': '23 November 2024', 'score': '0'},
+    {'date': '24 November 2024', 'score': '1'},
+    {'date': '25 November 2024', 'score': '2'},
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return const Text('recent assessment here');
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 6.0,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Recent Assessment History',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 16.0),
+          ...history.map((entry) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    entry['date']!,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Text(
+                    'IGA Score: ${entry['score']}',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }).toList(),
+        ],
+      ),
+    );
   }
 }
 
@@ -221,8 +279,46 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
+  int _currentIndex = 0;
+
+  final List<Widget> _pages = [
+    const HomePage(),
+    //const AssessmentPage(),
+    //const RecommendationPage(),
+    //const HistoryPage(),
+  ];
+
+  void _onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Text('navbar here');
+    return BottomNavigationBar(
+      backgroundColor: AppColors.primaryColor,
+      currentIndex: _currentIndex,
+      onTap: _onTabTapped,
+      items: [
+        BottomNavigationBarItem(
+          backgroundColor: AppColors.primaryColor,
+          icon: const Icon(Icons.home),
+          label: 'Home',
+        ),
+        const BottomNavigationBarItem(
+          icon: Icon(Icons.camera),
+          label: 'Assessment',
+        ),
+        const BottomNavigationBarItem(
+          icon: Icon(Icons.book),
+          label: 'Recommendation',
+        ),
+        const BottomNavigationBarItem(
+          icon: Icon(Icons.history),
+          label: 'History',
+        ),
+      ],
+    );
   }
 }
