@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mej/theme.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 void main() {
   runApp(const MaterialApp(
@@ -71,7 +72,7 @@ class _DateButtonState extends State<DateButton> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                 elevation: 5,
-                shadowColor: Colors.black.withOpacity(0.5),
+                shadowColor: Colors.black.withOpacity(1.0),
               ),
               child: Text(
                 'Weekly',
@@ -83,7 +84,7 @@ class _DateButtonState extends State<DateButton> {
                 ),
               ),
             ),
-            const SizedBox(width: 20),
+            const SizedBox(width: 19),
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
@@ -94,7 +95,7 @@ class _DateButtonState extends State<DateButton> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                 elevation: 5,
-                shadowColor: Colors.black.withOpacity(0.5),
+                shadowColor: Colors.black.withOpacity(1.0),
               ),
               child: Text(
                 'Monthly',
@@ -106,7 +107,7 @@ class _DateButtonState extends State<DateButton> {
                 ),
               ),
             ),
-            const SizedBox(width: 20),
+            const SizedBox(width: 19),
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
@@ -117,7 +118,7 @@ class _DateButtonState extends State<DateButton> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                 elevation: 5,
-                shadowColor: Colors.black.withOpacity(0.5),
+                shadowColor: Colors.black.withOpacity(1.0),
               ),
               child: Text(
                 'Yearly',
@@ -146,8 +147,55 @@ class GraphSevere extends StatefulWidget {
 class _GraphSevereState extends State<GraphSevere> {
   @override
   Widget build(BuildContext context) {
-    return const Text('graph here');
+    return Center(
+      child: Container(
+        child: SfCartesianChart(
+          title: ChartTitle(
+            text: 'Eczema Severity Score',
+            textStyle: GoogleFonts.workSans(
+              textStyle: const TextStyle(
+                color: Colors.black,
+              ),
+            ),
+            alignment: ChartAlignment.center,
+            borderWidth: 1,
+            //borderColor: Colors.transparent,
+            //backgroundColor: AppColors.primaryColor,
+          ),
+          primaryXAxis: const CategoryAxis(
+            title: AxisTitle(text: 'Month'),
+          ),
+          primaryYAxis: const NumericAxis(
+            title: AxisTitle(text: 'Scorad Score'),
+            interval: 5,
+            minimum: 20, // Set the minimum value to 20
+          ),
+          series: <LineSeries<SeverityScoreData, String>>[
+            LineSeries<SeverityScoreData, String>(
+              // Bind data source
+              dataSource: <SeverityScoreData>[
+                SeverityScoreData('Jan', 35),
+                SeverityScoreData('Feb', 28),
+                SeverityScoreData('Mar', 34),
+                SeverityScoreData('Apr', 32),
+                SeverityScoreData('May', 40)
+              ],
+              xValueMapper: (SeverityScoreData severityScore, _) =>
+                  severityScore.year,
+              yValueMapper: (SeverityScoreData severityScore, _) =>
+                  severityScore.severityScore,
+            )
+          ],
+        ),
+      ),
+    );
   }
+}
+
+class SeverityScoreData {
+  SeverityScoreData(this.year, this.severityScore);
+  final String year;
+  final double severityScore;
 }
 
 class RecentAssessmentHistory extends StatefulWidget {
