@@ -31,10 +31,16 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: AppColors.primaryColor,
           centerTitle: true,
         ),
-        body: Column(
+        body: const Column(
           children: [
+            SizedBox(height: 20),
             DateButton(),
+            SizedBox(height: 20),
             GraphSevere(),
+            SizedBox(height: 20),
+            RecentAssessmentHistory(),
+            SizedBox(height: 20),
+            BottomNavBar(),
           ],
         ));
   }
@@ -51,20 +57,77 @@ class _DateButtonState extends State<DateButton> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         OverflowBar(
           children: [
-            TextButton(
-              child: const Text('Weekly'),
+            ElevatedButton(
               onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                elevation: 5,
+                shadowColor: Colors.black.withOpacity(0.5),
+              ),
+              child: Text(
+                'Weekly',
+                style: GoogleFonts.workSans(
+                  textStyle: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ),
-            TextButton(
-              child: const Text('Monthly'),
+            const SizedBox(width: 20),
+            ElevatedButton(
               onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                elevation: 5,
+                shadowColor: Colors.black.withOpacity(0.5),
+              ),
+              child: Text(
+                'Monthly',
+                style: GoogleFonts.workSans(
+                  textStyle: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ),
-            TextButton(
-              child: const Text('Yearly'),
+            const SizedBox(width: 20),
+            ElevatedButton(
               onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                elevation: 5,
+                shadowColor: Colors.black.withOpacity(0.5),
+              ),
+              child: Text(
+                'Yearly',
+                style: GoogleFonts.workSans(
+                  textStyle: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ),
           ],
         )
@@ -73,11 +136,45 @@ class _DateButtonState extends State<DateButton> {
   }
 }
 
-class GraphSevere extends StatelessWidget {
+class GraphSevere extends StatefulWidget {
   const GraphSevere({super.key});
 
   @override
+  State<GraphSevere> createState() => _GraphSevereState();
+}
+
+class _GraphSevereState extends State<GraphSevere> {
+  @override
   Widget build(BuildContext context) {
     return const Text('graph here');
+  }
+}
+
+class RecentAssessmentHistory extends StatefulWidget {
+  const RecentAssessmentHistory({super.key});
+
+  @override
+  State<RecentAssessmentHistory> createState() =>
+      _RecentAssessmentHistoryState();
+}
+
+class _RecentAssessmentHistoryState extends State<RecentAssessmentHistory> {
+  @override
+  Widget build(BuildContext context) {
+    return const Text('recent assessment here');
+  }
+}
+
+class BottomNavBar extends StatefulWidget {
+  const BottomNavBar({super.key});
+
+  @override
+  State<BottomNavBar> createState() => _BottomNavBarState();
+}
+
+class _BottomNavBarState extends State<BottomNavBar> {
+  @override
+  Widget build(BuildContext context) {
+    return const Text('navbar here');
   }
 }
