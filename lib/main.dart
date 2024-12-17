@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mej/theme.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'AssessmentPage.dart';
+import 'RecommendationPage.dart';
 
 void main() {
   runApp(const MaterialApp(
